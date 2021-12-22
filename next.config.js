@@ -1,5 +1,5 @@
 const { NODE_ENV } = process.env;
-const URL_PATH = '/Kmatch-fornt-end'; // github pages url
+const URL_PATH = '/Kmatch-front-end'; // github pages url
 
 const isProd = NODE_ENV === 'production';
 

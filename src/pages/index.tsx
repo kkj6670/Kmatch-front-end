@@ -3,7 +3,10 @@ import type { NextPage } from 'next';
 const Home: NextPage = function () {
   return (
     <div className='flex w-screen h-screen'>
-      <div className='bg-[url("/images/bg-main-page3.jpeg")] blur-sm bg-no-repeat bg-full absolute w-screen h-screen' />
+      <div
+        style={{ backgroundImage: `url(${process.env.URL_PATH}/images/bg-main.jpeg)` }}
+        className='blur-sm bg-no-repeat bg-full absolute w-screen h-screen'
+      />
       <div className='absolute w-screen h-screen bg-black opacity-60' />
       <div className='m-auto space-y-3 w-128'>
         <div className='w-full px-6 py-5 mx-auto space-y-1 overflow-hidden transition duration-500 transform rounded-lg '>
