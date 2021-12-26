@@ -1,11 +1,13 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import SearchBox from 'components/SearchBox';
 
 const Home: NextPage = function () {
   const router = useRouter();
   const [name, setName] = useState('');
+  const dispatch = useDispatch();
 
   const handleSearchInput = useCallback(
     (e) => {
@@ -18,12 +20,19 @@ const Home: NextPage = function () {
     (e) => {
       e.preventDefault();
       if (name.replaceAll(' ', '').length === 0) {
-        alert('소환사명을 입력 해주세요.');
+        dispatch({
+          type: 'common/ALERT',
+          payload: {
+            type: 'error',
+            text: '소환사명을 입력해주세요.',
+            time: 3000,
+          },
+        });
       } else {
         router.push(`profile/${name}`);
       }
     },
-    [router, name],
+    [router, name, dispatch],
   );
 
   return (

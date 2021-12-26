@@ -1,17 +1,29 @@
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-
+import type { AppProps, AppContext, AppInitialProps } from 'next/app';
+import { useSelector } from 'react-redux';
 import wrapper from 'store';
-
+import { RootState } from 'store/reducers';
 import AlertBox from '../components/AlertBox';
 
-const MyApp = function ({ Component, pageProps }: AppProps) {
+const KmatchApp = function ({ Component, pageProps }: AppProps) {
+  const { alertInfo } = useSelector((state) => state.common);
+
   return (
     <>
       <Component {...pageProps} />
-      <AlertBox type='2' text='2' time={0} />
+      <AlertBox alertInfo={alertInfo} />
     </>
   );
 };
 
-export default wrapper.withRedux(MyApp);
+KmatchApp.getInitialProps = async ({ Component, ctx }: AppContext): Promise<AppInitialProps> => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
+
+export default wrapper.withRedux(KmatchApp);

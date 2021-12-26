@@ -10,12 +10,6 @@ export interface ICommonState {
   alertInfo: IAlertInfo;
 }
 
-export const alert = () => ({
-  type: ALERT,
-});
-
-export type CommonAction = ReturnType<typeof alert>;
-
 export const initialState = {
   alertInfo: {
     type: '',
@@ -24,6 +18,13 @@ export const initialState = {
   },
 };
 
+export const alert = (payload?: IAlertInfo) => ({
+  type: ALERT,
+  payload,
+});
+
+export type CommonAction = ReturnType<typeof alert>;
+
 export default function (state: ICommonState = initialState, action: CommonAction) {
   switch (action.type) {
     case 'common/ALERT':
@@ -31,6 +32,7 @@ export default function (state: ICommonState = initialState, action: CommonActio
         ...state,
         alertInfo: {
           ...state.alertInfo,
+          ...action.payload,
         },
       };
     default:
