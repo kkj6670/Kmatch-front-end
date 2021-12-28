@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction, combineReducers } from 'redux';
-import common, { ICommonState, I } from './common';
+import common, { ICommonState } from './common';
 
 export interface RootState {
   common: ICommonState;
