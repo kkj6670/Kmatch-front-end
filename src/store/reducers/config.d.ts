@@ -2,5 +2,6 @@ import 'react-redux';
 import { RootState } from './index';
 
 declare module 'react-redux' {
-  interface DefaultRootState extends RootState
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultRootState extends RootState {}
 }

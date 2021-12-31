@@ -6,11 +6,7 @@ export interface RootState {
   common: ICommonState;
 }
 
-interface IAction extends AnyAction {
-  payload: any;
-}
-
-const rootReducer = (state: RootState | undefined, action: IAction) => {
+const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   switch (action.type) {
     case HYDRATE:
       return action.payload;

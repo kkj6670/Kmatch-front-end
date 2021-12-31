@@ -23,9 +23,15 @@ export const alert = (payload?: IAlertInfo) => ({
   payload,
 });
 
-export type CommonAction = ReturnType<typeof alert>;
+export type CommonAction = {
+  type: typeof ALERT;
+  payload?: IAlertInfo;
+};
 
-export default function (state: ICommonState = initialState, action: CommonAction) {
+export default function commonReducer(
+  state: ICommonState = initialState,
+  action: CommonAction,
+): ICommonState {
   switch (action.type) {
     case 'common/ALERT':
       return {
