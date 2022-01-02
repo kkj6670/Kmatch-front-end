@@ -9,6 +9,15 @@ interface ISearch {
 }
 
 const SearchBox = function ({ placeholder, value, onInput, onSearch }: ISearch) {
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.code === 'Enter') {
+        onSearch(e);
+      }
+    },
+    [onSearch],
+  );
+
   return (
     <div className='flex w-full m-auto mx-auto space-x-3'>
       <input
@@ -17,6 +26,7 @@ const SearchBox = function ({ placeholder, value, onInput, onSearch }: ISearch) 
         type='text'
         value={value}
         onInput={onInput}
+        onKeyDown={handleKeyDown}
       />
       <button
         className='flex-shrink-0 px-4 py-2 text-base font-semibold text-white transition duration-500 transform bg-blue-500 rounded-lg hover:shadow-lg focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200 motion-reduce:transform-none hover:scale-105 tramsform'

@@ -18,7 +18,6 @@ const Home: NextPage = function () {
 
   const handleSearch = useCallback(
     (e) => {
-      e.preventDefault();
       if (name.replaceAll(' ', '').length === 0) {
         dispatch({
           type: 'common/ALERT',
