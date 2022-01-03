@@ -6,6 +6,10 @@ const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+interface IError {
+  errMsg: string;
+}
+
 interface ISummoner {
   id: string;
   accountId: string;
@@ -14,10 +18,6 @@ interface ISummoner {
   profileIconId: number;
   revisionDate: number;
   summonerLevel: number;
-}
-
-interface IError {
-  errMsg: string;
 }
 
 interface IErrorGetProfile extends IError {
@@ -29,11 +29,17 @@ interface IProfile {
   matchs: object[];
 }
 
-export function getProfile(name: string): Promise<IProfile | IErrorGetProfile> {
+interface IGetProfile {
+  data: IProfile;
+}
+
+export function getProfile(name: string): Promise<IGetProfile | IErrorGetProfile> {
   return instance
     .get(`/profile/${encodeURI(name)}`)
     .then((res) => {
-      return res.data;
+      return {
+        data: res.data,
+      };
     })
     .catch((err: Error | AxiosError) => {
       const errorData = {
@@ -50,6 +56,15 @@ export function getProfile(name: string): Promise<IProfile | IErrorGetProfile> {
     });
 }
 
+export function getLatestVersion(): Promise<string> {
+  return axios
+    .get('https://ddragon.leagueoflegends.com/api/versions.json')
+    .then((res) => res.data[0])
+    .catch((err) => {
+      console.error(err);
+      return '11.24.1';
+    });
+}
 export default {
   getProfile,
 };
